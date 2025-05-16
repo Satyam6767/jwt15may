@@ -3,16 +3,18 @@ import axios from 'axios';
 
 function Profile() {
   const [user, setUser] = useState(null);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get('http://localhost:5000/api/auth/profile', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    .then(res => setUser(res.data.user))
-    .catch(() => alert('Unauthorized or Token expired'));
+    axios
+      .get(`${apiUrl}/api/auth/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => setUser(res.data.user))
+      .catch(() => alert('Unauthorized or Token expired'));
   }, []);
 
   if (!user) return <p>Loading...</p>;
@@ -20,8 +22,12 @@ function Profile() {
   return (
     <div>
       <h2>Profile</h2>
-      <p><strong>Name:</strong> {user.name}</p>
-      <p><strong>Email:</strong> {user.email}</p>
+      <p>
+        <strong>Name:</strong> {user.name}
+      </p>
+      <p>
+        <strong>Email:</strong> {user.email}
+      </p>
     </div>
   );
 }

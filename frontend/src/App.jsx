@@ -5,6 +5,8 @@ import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
 
 function App() {
+
+  
   return (
     <>
       <Navbar />
